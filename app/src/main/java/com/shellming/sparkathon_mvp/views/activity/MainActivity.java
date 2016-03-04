@@ -20,9 +20,9 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.shellming.sparkathon_mvp.R;
 import com.shellming.sparkathon_mvp.constants.GlobalConstant;
-import com.shellming.sparkathon_mvp.mappers.ViewPresenterMapper;
 import com.shellming.sparkathon_mvp.models.User;
 import com.shellming.sparkathon_mvp.presenters.IMainPresenter;
+import com.shellming.sparkathon_mvp.presenters.presenter.MainPresenter;
 import com.shellming.sparkathon_mvp.views.IMainView;
 import com.shellming.sparkathon_mvp.views.fragment.IndexFragment;
 import com.shellming.sparkathon_mvp.views.fragment.TimelineFragment;
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements IMainView, View.O
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        mainPresenter = ViewPresenterMapper.getMainPresenter(this);
+        mainPresenter = new MainPresenter(this);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nagivation);
@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements IMainView, View.O
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ViewPresenterMapper.setMainPresenter(null);
     }
 
     @Override

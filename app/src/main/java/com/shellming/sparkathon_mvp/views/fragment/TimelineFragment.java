@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.shellming.sparkathon_mvp.R;
-import com.shellming.sparkathon_mvp.mappers.ViewPresenterMapper;
 import com.shellming.sparkathon_mvp.models.Timeline;
 import com.shellming.sparkathon_mvp.presenters.ITimelinePresenter;
 import com.shellming.sparkathon_mvp.presenters.adapter.TimelineRecyclerViewAdapter;
+import com.shellming.sparkathon_mvp.presenters.presenter.TimelinePresenter;
 import com.shellming.sparkathon_mvp.views.ITimelineView;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class TimelineFragment extends Fragment implements ITimelineView, SwipeRe
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = ViewPresenterMapper.getTimelinePresenter(this);
+        presenter = new TimelinePresenter(this);
     }
 
     @Nullable
@@ -58,7 +58,6 @@ public class TimelineFragment extends Fragment implements ITimelineView, SwipeRe
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ViewPresenterMapper.setTimelinePresenter(null);
     }
 
     private void setupSwipeRefreshLayout(){

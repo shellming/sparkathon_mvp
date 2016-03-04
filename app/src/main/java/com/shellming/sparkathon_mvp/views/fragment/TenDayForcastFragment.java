@@ -11,10 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shellming.sparkathon_mvp.R;
-import com.shellming.sparkathon_mvp.mappers.ViewPresenterMapper;
 import com.shellming.sparkathon_mvp.models.Weather;
 import com.shellming.sparkathon_mvp.presenters.ITendaysForcastPresenter;
 import com.shellming.sparkathon_mvp.presenters.adapter.TendayViewAdaper;
+import com.shellming.sparkathon_mvp.presenters.presenter.TendaysForcastPresenter;
 import com.shellming.sparkathon_mvp.views.ITendaysForcastView;
 
 import java.util.ArrayList;
@@ -62,13 +62,12 @@ public class TenDayForcastFragment extends Fragment implements ITendaysForcastVi
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        tendaysForcastPresenter = ViewPresenterMapper.getTendaysForcastPresenter(this);
+        tendaysForcastPresenter = new TendaysForcastPresenter(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ViewPresenterMapper.setTendaysForcastPresenter(null);
     }
 
     @Override

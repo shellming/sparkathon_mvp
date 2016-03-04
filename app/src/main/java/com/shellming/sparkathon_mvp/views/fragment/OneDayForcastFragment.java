@@ -16,9 +16,9 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.shellming.sparkathon_mvp.R;
-import com.shellming.sparkathon_mvp.mappers.ViewPresenterMapper;
 import com.shellming.sparkathon_mvp.models.Weather;
 import com.shellming.sparkathon_mvp.presenters.IOnedayForcastPresenter;
+import com.shellming.sparkathon_mvp.presenters.presenter.OnedayForcastPresenter;
 import com.shellming.sparkathon_mvp.views.IOneDayForcastView;
 
 import java.util.ArrayList;
@@ -41,13 +41,12 @@ public class OneDayForcastFragment extends Fragment implements IOneDayForcastVie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        onedayForcastPresenter = ViewPresenterMapper.getOnedayForcastPresenter(this);
+        onedayForcastPresenter = new OnedayForcastPresenter(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ViewPresenterMapper.setOnedayForcastPresenter(null);
     }
 
     private void setData(String title, List<Entry> entries, List<String> labels, LineChart chart, int index){

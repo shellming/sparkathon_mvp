@@ -14,10 +14,10 @@ import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.shellming.sparkathon_mvp.R;
-import com.shellming.sparkathon_mvp.mappers.ViewPresenterMapper;
 import com.shellming.sparkathon_mvp.models.Weather;
 import com.shellming.sparkathon_mvp.presenters.ICurrentObPresenter;
 import com.shellming.sparkathon_mvp.presenters.adapter.CurrentObAdapter;
+import com.shellming.sparkathon_mvp.presenters.presenter.CurrentObPresenter;
 import com.shellming.sparkathon_mvp.views.ICurrentObView;
 
 /**
@@ -42,7 +42,7 @@ public class CurrentObservationFragment extends Fragment implements ICurrentObVi
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = ViewPresenterMapper.getCurrentObPresenter(this);
+        presenter = new CurrentObPresenter(this);
     }
 
     @Nullable
@@ -68,7 +68,6 @@ public class CurrentObservationFragment extends Fragment implements ICurrentObVi
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ViewPresenterMapper.setCurrentObPresenter(null);
     }
 
     @Override
