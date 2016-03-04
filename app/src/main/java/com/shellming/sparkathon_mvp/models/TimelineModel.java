@@ -1,6 +1,7 @@
 package com.shellming.sparkathon_mvp.models;
 
 import android.content.Context;
+import android.location.Location;
 
 import com.shellming.sparkathon_mvp.constants.GlobalConstant;
 import com.shellming.sparkathon_mvp.utils.TwitterUtil;
@@ -12,8 +13,10 @@ import java.util.List;
 import rx.Observable;
 import rx.exceptions.Exceptions;
 import rx.functions.Func1;
+import twitter4j.GeoLocation;
 import twitter4j.Query;
 import twitter4j.QueryResult;
+import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
@@ -34,6 +37,29 @@ public class TimelineModel {
                     public List<Timeline> call(Context context) {
                         try {
                             return getTimeline(context);
+                        } catch (TwitterException e) {
+                            throw Exceptions.propagate(e);
+                        }
+                    }
+                });
+    }
+
+    public Observable<String> sendObTimeline(final Context context, Timeline timeline){
+        return Observable.just(timeline)
+                .map(new Func1<Timeline, String>() {
+                    @Override
+                    public String call(Timeline timeline) {
+                        StatusUpdate update = new StatusUpdate(timeline.toString());
+                        Location location = LocationModel.getInstance().getLocation(context);
+
+                        Double latitude = location.getLatitude();
+                        Double longitude = location.getLongitude();
+                        GeoLocation geoLocation = new GeoLocation(latitude, longitude);
+                        update.setLocation(geoLocation);
+                        Twitter twitter = TwitterUtil.getInstance().getTwitter();
+                        try {
+                            twitter.updateStatus(update);
+                            return "更新成功！";
                         } catch (TwitterException e) {
                             throw Exceptions.propagate(e);
                         }

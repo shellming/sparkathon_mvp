@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.shellming.sparkathon_mvp.R;
 import com.shellming.sparkathon_mvp.constants.GlobalConstant;
 import com.shellming.sparkathon_mvp.models.Weather;
+import com.shellming.sparkathon_mvp.views.activity.SendTwitterActivity;
 
 import java.util.List;
 
@@ -39,16 +40,16 @@ public class TendaysForcastViewHolder extends RecyclerView.ViewHolder{
         mExpView = (TextView) mView.findViewById(R.id.run_exp);
         expressionImgView = (ImageView) mView.findViewById(R.id.expression);
 
-//        mView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(context, SendTwitterActivity.class);
-//                String dateTime = mDateTime.getText().toString();
-//                String[] parts = dateTime.split(",");
-//                intent.putExtra("date", parts[0]);
-//                context.startActivity(intent);
-//            }
-//        });
+        mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SendTwitterActivity.class);
+                String dateTime = mDateTime.getText().toString();
+                String[] parts = dateTime.split(",");
+                intent.putExtra("date", parts[0]);
+                context.startActivity(intent);
+            }
+        });
     }
 
     public void setData(Weather weather){

@@ -33,14 +33,6 @@ public class TwitterUtil {
         twitterStream = twitterStreamFactory.getInstance();
     }
 
-    public void postTweet(String content){
-//        new TwitterPostTweetTask().execute(content);
-    }
-
-    public void searchTweets(){
-//        new TwitterSearchTweetsTask().execute(GlobalConstant.TWITTER_TAG);
-    }
-
     public TwitterStream getTwitterStream() {
         return twitterStream;
     }
